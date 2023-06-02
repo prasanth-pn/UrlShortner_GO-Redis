@@ -20,5 +20,7 @@ func ResolveURL(c *fiber.Ctx) error {
 		})
 	}
 	rIr := database.CreateClient(1)
-	defer rInr.Close()
+	defer rIr.Close()
+	_ = rIr.Incr(database.Ctx, "counter")
+	return c.Redirect(value, 301)
 }

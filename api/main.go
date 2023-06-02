@@ -8,15 +8,16 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
+	"github.com/prasanth-pn/UrlShortner_GO-Redis/routes"
 )
 
-func setupRoutes(app *fiber.APP) {
+func setupRoutes(app *fiber.App) {
 	app.Get("/:url", routes.ResolveURL)
 	app.Post("/api/v1", routes.ShortenURL)
 }
 func main() {
 	fmt.Println("Hello word")
-	err := godotenv.Load() 
+	err := godotenv.Load()
 
 	if err != nil {
 		fmt.Println("errot loading env file")
@@ -25,7 +26,7 @@ func main() {
 	app := fiber.New()
 	app.Use(logger.New())
 	setupRoutes(app)
-	err=app.Listen(os.Getenv("APP_PORT"))
+	err = app.Listen(os.Getenv("APP_PORT"))
 	log.Fatal(err)
 
 }
